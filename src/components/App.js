@@ -7,13 +7,17 @@ import CalcButton from "./CalcButton";
 import { initial } from "lodash";
 import reducer, { initialState } from "../reducers";
 
-import { applyNumber } from "../actions";
+import { changeOperation, applyNumber } from "../actions";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleNumberClick = (number) => {
     dispatch(applyNumber(number));
+  };
+  const handleOperationClick = (operator) => {
+    dispatch(changeOperation(operator));
+    console.log("clicking");
   };
 
   return (
@@ -63,9 +67,18 @@ function App() {
             </div>
 
             <div className="row">
-              <CalcButton value={"+"} />
-              <CalcButton value={"*"} />
-              <CalcButton value={"-"} />
+              <CalcButton
+                value={"+"}
+                onClick={() => handleOperationClick("+")}
+              />
+              <CalcButton
+                value={"*"}
+                onClick={() => handleOperationClick("*")}
+              />
+              <CalcButton
+                value={"-"}
+                onClick={() => handleOperationClick("-")}
+              />
             </div>
 
             <div className="row ce_button">
