@@ -7,7 +7,14 @@ import CalcButton from "./CalcButton";
 import { initial } from "lodash";
 import reducer, { initialState } from "../reducers";
 
-import { changeOperation, applyNumber } from "../actions";
+import {
+  changeOperation,
+  applyNumber,
+  clearDisplay,
+  memoryTotal,
+  addingMemory,
+  clearMemory,
+} from "../actions";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -17,9 +24,19 @@ function App() {
   };
   const handleOperationClick = (operator) => {
     dispatch(changeOperation(operator));
-    console.log("clicking");
   };
-
+  const handleClear = () => {
+    dispatch(clearDisplay());
+  };
+  const handleMemoryTotal = () => {
+    dispatch(memoryTotal());
+  };
+  const handleAddMemory = () => {
+    dispatch(addingMemory());
+  };
+  const handleClearMemory = () => {
+    dispatch(clearMemory());
+  };
   return (
     <div className="App">
       <nav className="navbar navbar-dark bg-dark">
@@ -43,9 +60,9 @@ function App() {
             </div>
 
             <div className="row">
-              <CalcButton value={"M+"} />
-              <CalcButton value={"MR"} />
-              <CalcButton value={"MC"} />
+              <CalcButton value={"M+"} onClick={handleMemoryTotal} />
+              <CalcButton value={"MR"} onClick={handleAddMemory} />
+              <CalcButton value={"MC"} onClick={handleClearMemory} />
             </div>
 
             <div className="row">
@@ -82,7 +99,7 @@ function App() {
             </div>
 
             <div className="row ce_button">
-              <CalcButton value={"CE"} />
+              <CalcButton value={"CE"} onClick={handleClear} />
             </div>
           </form>
         </div>
